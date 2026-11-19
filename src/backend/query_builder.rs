@@ -176,9 +176,9 @@ pub trait QueryBuilder:
             sql.write_str(" ").unwrap();
         }
 
-        let mut selects = select.selects.iter();
+        let mut select_exprs = select.selects.iter();
         join_io!(
-            selects,
+            select_exprs,
             expr,
             join {
                 sql.write_str(", ").unwrap();
