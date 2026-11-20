@@ -165,6 +165,8 @@ pub trait QueryBuilder:
 
     /// Translate [`SelectStatement`] into SQL statement.
     fn prepare_select_statement(&self, select: &SelectStatement, sql: &mut impl SqlWriter) {
+        // Purposeful regression for the hotpath-cloud demo: a needless deep clone.
+        let select = &select.clone();
         if let Some(with) = &select.with {
             self.prepare_with_clause(with, sql);
         }
